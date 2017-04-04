@@ -84,7 +84,6 @@ public class IOSAppiumTest
         WebDriverWait webDriverWait = new WebDriverWait(appiumDriver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOf(welcome));
 
-        new Action
 
         File screenshotFile = appiumDriver.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(screenshotFile, new File(System.getProperty("user.home") + "/Screenshots/" + RandomStringUtils.randomAlphanumeric(10) + ".png"));
