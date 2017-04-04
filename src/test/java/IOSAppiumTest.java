@@ -2,15 +2,20 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -38,7 +43,7 @@ public class IOSAppiumTest
     @Before
     public void setUp() throws MalformedURLException
     {
-        URL url = new URL("http://0.0.0.0:4723/wd/hub");
+        URL url = new URL("http://127.0.0.1:4723/wd/hub");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
@@ -67,7 +72,7 @@ public class IOSAppiumTest
     }
 
     @Test
-    public void testLogin() throws InterruptedException
+    public void testLogin() throws InterruptedException, IOException
     {
         appiumDriver.findElement(By.xpath("//XCUIElementTypeTextField[@value='Username']")).sendKeys(USERNAME);
         appiumDriver.findElement(By.xpath("//XCUIElementTypeSecureTextField")).sendKeys(PASSWORD);
@@ -78,6 +83,11 @@ public class IOSAppiumTest
 
         WebDriverWait webDriverWait = new WebDriverWait(appiumDriver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOf(welcome));
+
+        new Action
+
+        File screenshotFile = appiumDriver.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screenshotFile, new File(System.getProperty("user.home") + "/Screenshots/" + RandomStringUtils.randomAlphanumeric(10) + ".png"));
 
         Assert.assertTrue(appiumDriver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='Welcome']")).isDisplayed());
     }
