@@ -43,7 +43,7 @@ public class IOSAppiumTest
     @Before
     public void setUp() throws MalformedURLException
     {
-        URL url = new URL("http://127.0.0.1:4723/wd/hub");
+        URL url = new URL("http://0.0.0.0:4723/wd/hub");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 

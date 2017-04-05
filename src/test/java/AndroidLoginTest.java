@@ -27,7 +27,7 @@ public class AndroidLoginTest
     public void setUp() throws MalformedURLException
     {
 
-        URL url = new URL("http://0.0.0.0:4724/wd/hub");
+        URL url = new URL("http://0.0.0.0:4723/wd/hub");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
@@ -62,7 +62,7 @@ public class AndroidLoginTest
     }
 
     @Test
-    public void testScrollWelcomePage()
+    public void testScrollWelcomePage() throws InterruptedException
     {
         login();
 
@@ -70,13 +70,15 @@ public class AndroidLoginTest
         touchAction.press(200,700).waitAction(400).moveTo(200,500).release();
         touchAction.perform();
 
+        Thread.sleep(5000);
+
     }
 
 
     private void login()
     {
-        appiumDriver.findElement(By.id("com.example.can.logintesthive:id/editText_username")).sendKeys("admin");
-        appiumDriver.findElement(By.id("com.example.can.logintesthive:id/editText_password")).sendKeys("password");
+        appiumDriver.findElement(By.id("com.example.can.logintesthive:id/editText_username")).sendKeys(USERNAME);
+        appiumDriver.findElement(By.id("com.example.can.logintesthive:id/editText_password")).sendKeys(PASSWORD);
 
         appiumDriver.findElement(By.id("com.example.can.logintesthive:id/button")).click();
 
